@@ -47,7 +47,7 @@ class StringTransformer:
         kwargs : mixed
             Keyworded arguments for the callable function.
         """
-        self._check_function(func)
+        self._check_function(func, args, kwargs)
         self._pipeline.append((func, args, kwargs))
 
     def __add__(self, step):
@@ -99,7 +99,7 @@ class StringTransformer:
         return self
 
     @staticmethod
-    def _check_function(func, *args, **kwargs):
+    def _check_function(func, args, kwargs):
         """
         Checks function for transforming strings.
 

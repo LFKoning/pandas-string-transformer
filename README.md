@@ -9,6 +9,8 @@ Using the `StringTransformer` class is very simple. First initialize an instance
 adding transformations to it:
 
 ```python
+from string_transformer import StringTransformer
+
 # Initialize the StringTransformer.
 tfm = StringTransformer()
 
@@ -21,6 +23,8 @@ Next we apply the transformer to a pandas DataFrame:
 
 ```python
 # Transform a dataframe
+import pandas as pd
+
 df = pd.DataFrame({
     "x": [1, 2, 3],
     "label": [" One ", " Two ", " Three "]
@@ -30,6 +34,29 @@ tfm.transform(df)
 
 Note: The transformer will only transform te `label` column, because this column is of the `object`
 data type. Column `x` will remain untouched.
+
+If you need to supply arguments to the string transformation function, you can supply them in the
+`add` method like so:
+
+```python
+# Initialize the StringTransformer.
+tfm = StringTransformer()
+
+# Add replace space by underscore step
+tfm.add(str.replace, " ", "_")
+```
+
+In this example the positional arguments `" "` and `"_"` are passed on to the `str.replace` method
+when `transform` is invoked. Keyworded arguments can be used in similar fashion.
+
+If you want to see which transformations are currently configured, use the `list_steps` method:
+
+```python
+# Return steps in the transformation pipeline
+tfm.list_steps()
+```
+
+## Shorter syntax
 
 A shorter version of the above code looks like this:
 
@@ -42,19 +69,12 @@ If you need to supply arguments, you can use a tuple:
 
 ```python
 # Initialize and add steps
-tfm = StringTransformer() + (str.strip, ["_"]) + str.lower
+tfm = StringTransformer() + (str.repalace, [" ", "_"]) + str.lower
 ```
 
 When a list is supplied, the `StringTransformer` assumes that the list contains positional arguments
 to the transformer function. When a dict is supplied, the `StringTransformer` assumes these are
 keyworded arguments to the transformer function.
-
-If you want to see which transformations are currently configured, use the `list_steps` method:
-
-```python
-# Return steps in the transformation pipeline
-tfm.list_steps()
-```
 
 ## Common transformations
 
