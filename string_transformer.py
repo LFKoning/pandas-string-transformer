@@ -12,11 +12,11 @@ tfm.add(str.lower)
 
 # Same but shorter
 tfm = StringTransformer()
-tfm = tfm + str.strip + str.lower
+tfm + str.strip + str.lower
 
 # Transform a dataframe
 # Note: Only column `lab` will be transformed due to data type selection.
-df = pd.DataFrame({"x": [1, 2, 3], "lab": [" One ", " Two ", " Three "]})
+df = pd.DataFrame({"x": [1, 2, 3], "label": [" One ", " Two ", " Three "]})
 tfm.transform(df)
 """
 
